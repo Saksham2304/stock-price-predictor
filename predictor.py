@@ -82,9 +82,13 @@ def main(save_metrics=False):
     X_train, X_test = X.iloc[:split_idx].values, X.iloc[split_idx:].values
     y_train, y_test = y.iloc[:split_idx].values, y.iloc[split_idx:].values
     dates_train, dates_test = dates.iloc[:split_idx], dates.iloc[split_idx:]
+    from sklearn.preprocessing import StandardScaler
 
+    # Fit only on training data
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
+
+    # Transform test data without re‑fitting
     X_test_scaled = scaler.transform(X_test)
 
     model = LinearRegression()
